@@ -1,0 +1,81 @@
+package ${package.ServiceImpl};
+
+import java.util.List;
+
+import ${package.Entity}.${entity};
+import ${package.Mapper}.${table.mapperName};
+import ${package.Service}.${table.serviceName};
+
+import org.slf4j.Logger;
+import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.transaction.annotation.Transactional;
+import org.springframework.stereotype.Service;
+
+/**
+ * $!{table.comment} 服务实现类
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+@Service
+#if(${kotlin})
+import ${superServiceImplClassPackage};
+        open class ${table.serviceImplName} : ${superServiceImplClass}<${table.mapperName}, ${entity}>(), ${table.serviceName} {
+
+        }
+#else
+        public class ${table.serviceImplName} implements ${table.serviceName} {
+
+        private static final Logger LOG=LoggerFactory.getLogger(${table.serviceImplName}.class);
+
+        @Autowired
+        private ${table.mapperName} ${table.entityPath}Mapper;
+
+        /**
+         * 	添加
+         */
+        @Override
+        @Transactional
+        public void save${entity}(${entity} ${table.entityPath}){
+    ${table.entityPath}Mapper.save${entity}(${table.entityPath});
+        }
+
+        /**
+         * 	id查询
+         */
+        @Override
+        public ${entity} find${entity}ById(${entity} ${table.entityPath}){
+    ${entity} ojb= ${table.entityPath}Mapper.find${entity}ById(${table.entityPath});
+        return ojb;
+        }
+
+        /**
+         * 	分页查询
+         */
+        @Override
+        public List<${entity}>find${entity}List(${entity} ${table.entityPath}){
+        List<${entity}>list= ${table.entityPath}Mapper.find${entity}List(${table.entityPath});
+        return list;
+        }
+
+        /**
+         * 	修改
+         */
+        @Override
+        @Transactional
+        public void update${entity}(${entity} ${table.entityPath}){
+    ${table.entityPath}Mapper.update${entity}(${table.entityPath});
+        }
+
+        /**
+         * 	删除
+         */
+        @Override
+        @Transactional
+        public void delete${entity}(${entity} ${table.entityPath}){
+    ${table.entityPath}Mapper.delete${entity}(${table.entityPath});
+        }
+
+        }
+#end

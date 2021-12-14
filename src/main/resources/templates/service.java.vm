@@ -1,0 +1,43 @@
+package ${package.Service};
+
+import java.util.List;
+
+import ${package.Entity}.${entity};
+
+
+/**
+ * $!{table.comment} 服务类
+ *
+ * @author ${author}
+ * @date ${date}
+ */
+#if(${kotlin})
+import ${superServiceClassPackage};
+interface ${table.serviceName} : ${superServiceClass}<${entity}>
+#else
+public interface ${table.serviceName} {
+
+        /**
+         * 	添加
+         */
+        void save${entity}(${entity} ${table.entityPath});
+        /**
+         * 	id查询
+         */
+    ${entity} find${entity}ById(${entity} ${table.entityPath});
+        /**
+         * 	分页查询
+         */
+        List<${entity}> find${entity}List(${entity} ${table.entityPath});
+        /**
+         * 	修改
+         */
+        void update${entity}(${entity} ${table.entityPath});
+        /**
+         * 	删除
+         */
+        void delete${entity}(${entity} ${table.entityPath});
+
+
+        }
+#end
